@@ -1,15 +1,9 @@
 /*
- *
+ * CodeX Studio Copyright.
  */
 #include <iostream>
-#ifdef __APPLE__
-#include <OPENGL/gl3.h>
-#define __gl_h_
-#include <GLUT/glut.h>
-#else
-#include <GL/gl.h>
-#include <GL/freeglut.h>
-#endif
+#include "codeX_opengl_wrapper.h"
+
 using namespace std;
 
 void display_version()
@@ -34,7 +28,7 @@ int main(int argc, char *argv[])
 #else
     glutInitDisplayMode(GLUT_RGBA);
 #endif
-    glutCreateWindow("GLEW Test");//get an openGL context
+    glutCreateWindow("Matrix.");//get an openGL context
 
     //openGL生产商及版本
     display_version();

@@ -12,7 +12,10 @@ find_package(OpenGL REQUIRED)
 find_package(GLUT REQUIRED)
 set(OPENGL_LIBS ${GLUT_LIBRARY} ${OPENGL_LIBRARY})
 
-add_executable(${PROJECT_NAME} src/codeX_main.cc)
+add_executable(${PROJECT_NAME}
+    src/codeX_main.cc
+    src/codeX_opengl_wrapper.cc
+    src/codeX_opengl_wrapper.h)
 target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBS})
 
 install(TARGETS codeX DESTINATION bin)
