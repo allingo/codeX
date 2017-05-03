@@ -9,7 +9,16 @@
 #include <GL/gl.h>
 #include <GL/freeglut.h>
 #endif
-#include <iostream>
+#include <fstream>
 
-extern size_t
-TypeSize(GLenum type);
+namespace Graphic_Engine
+{
+    class Graphic_Engine_GL
+    {
+        public:
+            Graphic_Engine_GL();
+            ~Graphic_Engine_GL();
+            int TypeSize(GLenum type);
+            std::fstream log;
+    };
+}

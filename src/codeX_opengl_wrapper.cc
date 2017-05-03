@@ -3,18 +3,29 @@
  */
 #include "codeX_opengl_wrapper.h"
 
-size_t
-TypeSize(GLenum type)
+using namespace Graphic_Engine;
+
+Graphic_Engine_GL::Graphic_Engine_GL()
 {
-    size_t size;
+    log.open("OpenGL.log", std::ios_base::out);
+}
+
+Graphic_Engine_GL::~Graphic_Engine_GL()
+{
+    log.close();
+}
+int
+Graphic_Engine_GL::TypeSize(GLenum type)
+{
+    int size;
 #define CASE(Enum, Count, Type) \
     case Enum: size = Count * sizeof(Type); break;
     switch(type)
     {
         CASE(GL_FLOAT, 1, GLfloat);
         default:
-        fprintf(stderr, "Unknown type: 0x%x\n", type);
-        exit(EXIT_FAILURE);
+        log<<"Unknown type: 0x" << std::hex << type << std::endl;
+        size = -1;
         break;
     }
 #undef CASE

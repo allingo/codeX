@@ -5,6 +5,7 @@
 #include "codeX_opengl_wrapper.h"
 
 using namespace std;
+using namespace Graphic_Engine;
 
 void display_version()
 {
@@ -22,6 +23,7 @@ void display_version()
 
 int main(int argc, char *argv[])
 {
+    Graphic_Engine_GL GL;
     glutInit(&argc, argv);
 #ifdef __APPLE__
     glutInitDisplayMode(GLUT_RGBA|GLUT_3_2_CORE_PROFILE);
