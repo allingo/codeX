@@ -39,7 +39,6 @@ void init()
     GLuint program = GL.LoadShaders(shaders);
     if (0 == program)
     {
-        cout<<"LoadShaders failed."<<endl;
         exit(EXIT_FAILURE);
     }
     glUseProgram(program);
@@ -66,6 +65,13 @@ int main(int argc, char *argv[])
     glutInitWindowSize(512, 512);
     glutCreateWindow("Matrix.");
 
+#ifndef __APPLE__
+    if(GLEW_OK != glewInit())
+    {
+        cout<<"glew initialize error"<<endl;
+        exit(EXIT_FAILURE);
+    }
+#endif
     GL.display_version();
     init();
     glutDisplayFunc(display);

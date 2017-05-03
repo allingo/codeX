@@ -8,7 +8,7 @@
 #define __gl_h_
 #include <GLUT/glut.h>
 #else
-#include <GL/gl.h>
+#include <GL/glew.h>
 #include <GL/freeglut.h>
 #endif
 #include <fstream>

@@ -8,10 +8,16 @@ include_directories(include)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC -Wall -Werror -Wno-deprecated-declarations")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -Wno-deprecated-declarations")
-
+if(APPLE)
 find_package(OpenGL REQUIRED)
 find_package(GLUT REQUIRED)
 set(OPENGL_LIBS ${GLUT_LIBRARY} ${OPENGL_LIBRARY})
+else()
+find_package(OpenGL REQUIRED)
+find_package(GLUT REQUIRED)
+find_package(GLEW REQUIRED)
+set(OPENGL_LIBS ${GLUT_LIBRARY} ${OPENGL_LIBRARY} ${GLEW_LIBRARY})
+endif()
 
 add_executable(${PROJECT_NAME}
     src/codeX_main.cc
