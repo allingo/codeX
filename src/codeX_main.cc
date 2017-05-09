@@ -31,10 +31,17 @@ void init()
     glGenBuffers(NumBuffers, Buffers);
     glBindBuffer(GL_ARRAY_BUFFER, Buffers[ArrayBuffer]);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+#ifdef __APPLE__
     ShaderInfo shaders[] = {
-        {GL_VERTEX_SHADER, "shader/vertext.vert"},
-        {GL_FRAGMENT_SHADER, "shader/fragment.frag"},
+        {GL_VERTEX_SHADER, "shader/vertext_mac.vert"},
+        {GL_FRAGMENT_SHADER, "shader/fragment_mac.frag"},
         {GL_NONE, NULL}
+#else
+    ShaderInfo shaders[] = {
+        {GL_VERTEX_SHADER, "shader/vertext_linux.vert"},
+        {GL_FRAGMENT_SHADER, "shader/fragment_linux.frag"},
+        {GL_NONE, NULL}
+#endif
     };
     GLuint program = GL.LoadShaders(shaders);
     if (0 == program)

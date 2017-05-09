@@ -26,7 +26,14 @@ add_executable(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBS})
 
 install(TARGETS codeX DESTINATION bin)
+if(APPLE)
 install(FILES
-    src/shader/vertext.vert
-    src/shader/fragment.frag
+    src/shader/vertext_mac.vert
+    src/shader/fragment_mac.frag
     DESTINATION shader)
+else()
+install(FILES
+    src/shader/vertext_linux.vert
+    src/shader/fragment_linux.frag
+    DESTINATION shader)
+endif()
