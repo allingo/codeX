@@ -36,13 +36,14 @@ void init()
         {GL_VERTEX_SHADER, "shader/vertext_mac.vert"},
         {GL_FRAGMENT_SHADER, "shader/fragment_mac.frag"},
         {GL_NONE, NULL}
+    };
 #else
     ShaderInfo shaders[] = {
         {GL_VERTEX_SHADER, "shader/vertext_linux.vert"},
         {GL_FRAGMENT_SHADER, "shader/fragment_linux.frag"},
         {GL_NONE, NULL}
-#endif
     };
+#endif
     GLuint program = GL.LoadShaders(shaders);
     if (0 == program)
     {
