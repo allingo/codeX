@@ -8,20 +8,28 @@ include_directories(include)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC -Wall -Werror -Wno-deprecated-declarations")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -Wno-deprecated-declarations")
+
 if(APPLE)
+link_directories(lib-mac)
 find_package(OpenGL REQUIRED)
 find_package(GLUT REQUIRED)
-set(OPENGL_LIBS ${GLUT_LIBRARY} ${OPENGL_LIBRARY})
+set(OPENGL_LIBS ${GLUT_LIBRARY} ${OPENGL_LIBRARY} SOIL assimp)
 else()
+link_directories(lib)
 find_package(OpenGL REQUIRED)
 find_package(GLUT REQUIRED)
 find_package(GLEW REQUIRED)
-set(OPENGL_LIBS ${GLUT_LIBRARY} ${OPENGL_LIBRARY} ${GLEW_LIBRARY})
+set(OPENGL_LIBS ${GLUT_LIBRARY} ${OPENGL_LIBRARY} ${GLEW_LIBRARY} SOIL assimp)
 endif()
 
 add_executable(${PROJECT_NAME}
     src/codeX_main.cc
+    src/codeX_mesh.cc
+    src/codeX_texture.cc
     src/codeX_opengl_wrapper.cc
+    src/codeX_base.h
+    src/codeX_mesh.h
+    src/codeX_texture.h
     src/codeX_opengl_wrapper.h)
 target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBS})
 

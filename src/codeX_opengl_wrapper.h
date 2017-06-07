@@ -1,6 +1,7 @@
 /*
  * CodeX Studio Copyright.
  */
+
 #ifndef __CODEX_OPENGL_WRAPPER_H__
 #define __CODEX_OPENGL_WRAPPER_H__
 #ifdef __APPLE__
@@ -12,20 +13,40 @@
 #include <GL/freeglut.h>
 #endif
 #include <fstream>
+#include "codeX_base.h"
 
 namespace Graphic_Engine
 {
-    typedef struct
+    extern std::fstream logger;
+
+    struct ShaderInfo
     {
         GLenum       type;
         const char*  filename;
         GLuint       shader;
-    } ShaderInfo;
+    };
+
+    struct Vertex
+    {
+        Base::Vector3f m_pos;
+        Base::Vector2f m_tex;
+        Base::Vector3f m_normal;
+
+        Vertex() {}
+
+        Vertex(const Base::Vector3f& pos,
+                const Base::Vector2f& tex,
+                const Base::Vector3f& normal)
+        {
+            m_pos    = pos;
+            m_tex    = tex;
+            m_normal = normal;
+        }
+    };
 
     class Graphic_Engine_GL
     {
         private:
-            std::fstream log;
             /* openGL生产商及版本 */
             const GLubyte* vendorName;
             const GLubyte* version;

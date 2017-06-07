@@ -5,19 +5,23 @@
 #include "codeX_opengl_wrapper.h"
 
 using namespace Graphic_Engine;
-
+std::fstream Graphic_Engine::logger;
+/*
+ * Graphic_Engine_GL Class
+ */
 Graphic_Engine_GL::Graphic_Engine_GL()
 {
-    log.open("OpenGL.log", std::ios_base::out);
-    if (!log.is_open())
+    logger.open("OpenGL.log", std::ios_base::out);
+    if (!logger.is_open())
     {
         std::cout<<"Open log failed."<<std::endl;
+        exit(EXIT_FAILURE);
     }
 }
 
 Graphic_Engine_GL::~Graphic_Engine_GL()
 {
-    log.close();
+    logger.close();
 }
 
 int
@@ -68,11 +72,11 @@ void Graphic_Engine_GL::display_version()
     version = glGetString(GL_VERSION);
     renderer = glGetString(GL_RENDERER);
     slversion = glGetString(GL_SHADING_LANGUAGE_VERSION);
-    log<<"vendorName:"<<vendorName<<std::endl;
-    log<<"version:"<<version<<std::endl;
-    log<<"renderer:"<<renderer<<std::endl;
-    log<<"GLSL:"<<slversion<<std::endl;
-    log.flush();
+    logger<<"vendorName:"<<vendorName<<std::endl;
+    logger<<"version:"<<version<<std::endl;
+    logger<<"renderer:"<<renderer<<std::endl;
+    logger<<"GLSL:"<<slversion<<std::endl;
+    logger.flush();
 }
 
 void Graphic_Engine_GL::clear(GLbitfield mask)
@@ -85,7 +89,7 @@ const GLchar* Graphic_Engine_GL::ReadShader(const char* filename)
     FILE* infile = fopen(filename, "rb");
     if (!infile)
     {
-        log << "Unable to open file '" << filename << "'" << std::endl;
+        logger << "Unable to open file '" << filename << "'" << std::endl;
         return NULL;
     }
 
@@ -125,7 +129,7 @@ GLuint Graphic_Engine_GL::LoadShaders(ShaderInfo* shaders)
                 entry->shader = 0;
             }
 
-            log<<"source is NULL."<<std::endl;
+            logger<<"source is NULL."<<std::endl;
             return 0;
         }
 
@@ -143,7 +147,7 @@ GLuint Graphic_Engine_GL::LoadShaders(ShaderInfo* shaders)
 
             GLchar* msg = new GLchar[len + 1];
             glGetShaderInfoLog(shader, len, &len, msg);
-            log << "Shader compilation failed: " << msg << std::endl;
+            logger << "Shader compilation failed: " << msg << std::endl;
             delete [] msg;
             return 0;
         }
@@ -164,7 +168,7 @@ GLuint Graphic_Engine_GL::LoadShaders(ShaderInfo* shaders)
 
         GLchar* msg = new GLchar[len + 1];
         glGetProgramInfoLog(program, len, &len, msg);
-        log << "Shader linking failed: " << msg << std::endl;
+        logger << "Shader linking failed: " << msg << std::endl;
         delete [] msg;
         for (entry = shaders; entry->type != GL_NONE; ++entry)
         {
