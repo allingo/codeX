@@ -297,13 +297,6 @@ namespace Base
                 return &(m[0][0]);
             }
 
-            void Print() const
-            {
-                for (int i = 0 ; i < 4 ; i++) {
-                    printf("%f %f %f %f\n", m[i][0], m[i][1], m[i][2], m[i][3]);
-                }       
-            }
-
             float Determinant() const;
 
             Matrix4f& Inverse();
