@@ -163,7 +163,7 @@ bool Mesh::InitMaterials(const aiScene* pScene, const std::string& Filename)
         Dir = Filename.substr(0, SlashIndex);
     }
 
-    bool Ret = true;
+    bool ret = true;
 
     // Initialize the materials
     for (unsigned int i = 0 ; i < pScene->mNumMaterials ; i++)
@@ -185,14 +185,14 @@ bool Mesh::InitMaterials(const aiScene* pScene, const std::string& Filename)
 
                 if (!m_Textures[i]->Load())
                 {
-                    printf("Error loading texture '%s'\n", FullPath.c_str());
+                    logger<<"Error loading texture "<<FullPath.c_str()<<std::endl;
                     delete m_Textures[i];
                     m_Textures[i] = NULL;
-                    Ret = false;
+                    ret = false;
                 }
                 else
                 {
-                    printf("Loaded texture '%s'\n", FullPath.c_str());
+                    logger<<"Loaded texture "<<FullPath.c_str()<<std::endl;
                 }
             }
         }
@@ -200,13 +200,13 @@ bool Mesh::InitMaterials(const aiScene* pScene, const std::string& Filename)
         // Load a white texture in case the model does not include its own texture
         if (!m_Textures[i])
         {
-            m_Textures[i] = new Texture(GL_TEXTURE_2D, "../Content/white.png");
+            m_Textures[i] = new Texture(GL_TEXTURE_2D, "Assert/white.png");
 
-            Ret = m_Textures[i]->Load();
+            ret = m_Textures[i]->Load();
         }
     }
 
-    return Ret;
+    return ret;
 }
 
 void Mesh::Render()

@@ -39,6 +39,9 @@ install(FILES
     src/shader/vertext_mac.vert
     src/shader/fragment_mac.frag
     DESTINATION shader)
+install(FILES
+    lib-mac/libSOIL.a
+    DESTINATION lib-mac)
 else()
 install(FILES
     src/shader/vertext_linux.vert

@@ -112,6 +112,11 @@ GLuint Graphic_Engine_GL::LoadShaders(ShaderInfo* shaders)
     if (NULL == shaders) return 0;
 
     GLuint program = glCreateProgram();
+    if (program == 0)
+    {
+        logger<<"Error create program"<<std::endl;
+        exit(EXIT_FAILURE);
+    }
 
     ShaderInfo* entry = shaders;
     while (entry->type != GL_NONE)
@@ -119,6 +124,11 @@ GLuint Graphic_Engine_GL::LoadShaders(ShaderInfo* shaders)
         GLuint shader = glCreateShader(entry->type);
 
         entry->shader = shader;
+        if (shader == 0)
+        {
+            logger<<"Error create shader"<<std::endl;
+            exit(EXIT_FAILURE);
+        }
 
         const GLchar* source = ReadShader(entry->filename);
         if (NULL == source)
@@ -165,7 +175,6 @@ GLuint Graphic_Engine_GL::LoadShaders(ShaderInfo* shaders)
     {
         GLsizei len;
         glGetProgramiv(program, GL_INFO_LOG_LENGTH, &len);
-
         GLchar* msg = new GLchar[len + 1];
         glGetProgramInfoLog(program, len, &len, msg);
         logger << "Shader linking failed: " << msg << std::endl;
@@ -175,10 +184,26 @@ GLuint Graphic_Engine_GL::LoadShaders(ShaderInfo* shaders)
             glDeleteShader(entry->shader);
             entry->shader = 0;
         }
-
         return 0;
     }
-
+    glValidateProgram(program);
+    GLint validate;
+    glGetProgramiv(program, GL_VALIDATE_STATUS, &validate);
+    if (!validate)
+    {
+        GLsizei len;
+        glGetProgramiv(program, GL_INFO_LOG_LENGTH, &len);
+        GLchar* msg = new GLchar[len + 1];
+        glGetProgramInfoLog(program, len, &len, msg);
+        logger << "Shader linking failed: " << msg << std::endl;
+        delete [] msg;
+        for (entry = shaders; entry->type != GL_NONE; ++entry)
+        {
+            glDeleteShader(entry->shader);
+            entry->shader = 0;
+        }
+        return 0;
+    }
     return program;
 }
 
