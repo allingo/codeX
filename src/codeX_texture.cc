@@ -5,7 +5,8 @@
 #include <iostream>
 #include "codeX_texture.h"
 
-using namespace Graphic_Engine;
+using namespace Engine;
+using namespace Assert;
 
 /*
  * Texture Class

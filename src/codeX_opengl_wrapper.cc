@@ -4,12 +4,15 @@
 #include <iostream>
 #include "codeX_opengl_wrapper.h"
 
-using namespace Graphic_Engine;
-std::fstream Graphic_Engine::logger;
+using namespace Engine;
+
+Graphic_Engine Engine::OpenGL;
+
+std::fstream Engine::logger;
 /*
- * Graphic_Engine_GL Class
+ * Graphic_Engine Class
  */
-Graphic_Engine_GL::Graphic_Engine_GL()
+Graphic_Engine::Graphic_Engine()
 {
     logger.open("OpenGL.log", std::ios_base::out);
     if (!logger.is_open())
@@ -19,13 +22,13 @@ Graphic_Engine_GL::Graphic_Engine_GL()
     }
 }
 
-Graphic_Engine_GL::~Graphic_Engine_GL()
+Graphic_Engine::~Graphic_Engine()
 {
     logger.close();
 }
 
 int
-Graphic_Engine_GL::TypeSize(GLenum type)
+Graphic_Engine::TypeSize(GLenum type)
 {
     int size;
 #define CASE(Enum, Count, Type) \
@@ -66,7 +69,7 @@ Graphic_Engine_GL::TypeSize(GLenum type)
     return size;
 }
 
-void Graphic_Engine_GL::display_version()
+void Graphic_Engine::display_version()
 {
     vendorName = glGetString(GL_VENDOR);
     version = glGetString(GL_VERSION);
@@ -79,12 +82,12 @@ void Graphic_Engine_GL::display_version()
     logger.flush();
 }
 
-void Graphic_Engine_GL::clear(GLbitfield mask)
+void Graphic_Engine::clear(GLbitfield mask)
 {
     glClear(mask);
 }
 
-const GLchar* Graphic_Engine_GL::ReadShader(const char* filename)
+const GLchar* Graphic_Engine::ReadShader(const char* filename)
 {
     FILE* infile = fopen(filename, "rb");
     if (!infile)
@@ -107,7 +110,7 @@ const GLchar* Graphic_Engine_GL::ReadShader(const char* filename)
     return const_cast<const GLchar*>(source);
 }
 
-GLuint Graphic_Engine_GL::LoadShaders(ShaderInfo* shaders)
+GLuint Graphic_Engine::LoadShaders(ShaderInfo* shaders)
 {
     if (NULL == shaders) return 0;
 

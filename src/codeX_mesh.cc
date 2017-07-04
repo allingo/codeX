@@ -6,7 +6,7 @@
 
 using namespace Base;
 using namespace Assert;
-using namespace Graphic_Engine;
+using namespace Engine;
 using std::vector;
 using std::string;
 

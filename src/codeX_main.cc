@@ -9,9 +9,8 @@
 #define WINDOW_HEIGHT 1200
 
 using namespace std;
-using namespace Graphic_Engine;
+using namespace Engine;
 
-Graphic_Engine_GL GL;
 enum VAO_IDs{Triangle, NumVAOs};
 enum Buffer_IDs{ArrayBuffer, NumBuffers};
 enum Attrib_IDs{vPosition = 0};
@@ -35,7 +34,7 @@ void init()
         {GL_NONE, NULL}
     };
 #endif
-    GLuint program = GL.LoadShaders(shaders);
+    GLuint program = OpenGL.LoadShaders(shaders);
     if (0 == program)
     {
         exit(EXIT_FAILURE);
@@ -46,7 +45,7 @@ void init()
 
 void display(void)
 {
-    GL.clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    OpenGL.clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     m_pMesh->Render();
     glutSwapBuffers();
 }
@@ -69,7 +68,7 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 #endif
-    GL.display_version();
+    OpenGL.display_version();
     init();
     glutDisplayFunc(display);
     glutMainLoop();

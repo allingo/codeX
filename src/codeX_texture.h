@@ -8,9 +8,7 @@
 #include <SOIL/SOIL.h>
 #include "codeX_opengl_wrapper.h"
 
-using namespace Graphic_Engine;
-
-namespace Graphic_Engine
+namespace Assert
 {
     class Texture
     {

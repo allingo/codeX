@@ -15,10 +15,8 @@
 #include <fstream>
 #include "codeX_base.h"
 
-namespace Graphic_Engine
+namespace Engine
 {
-    extern std::fstream logger;
-
     struct ShaderInfo
     {
         GLenum       type;
@@ -44,7 +42,7 @@ namespace Graphic_Engine
         }
     };
 
-    class Graphic_Engine_GL
+    class Graphic_Engine
     {
         private:
             /* openGL生产商及版本 */
@@ -54,12 +52,15 @@ namespace Graphic_Engine
             const GLubyte* slversion;
             const GLchar* ReadShader(const char* filename);
         public:
-            Graphic_Engine_GL();
-            ~Graphic_Engine_GL();
+            Graphic_Engine();
+            ~Graphic_Engine();
             int TypeSize(GLenum type);
             void display_version();
             void clear(GLbitfield mask);
             GLuint LoadShaders(ShaderInfo* shaders);
     };
+
+    extern std::fstream logger;
+    extern Graphic_Engine OpenGL;
 }
 #endif

@@ -28,7 +28,7 @@ namespace Assert
     {
         MeshEntry();
         ~MeshEntry();
-        void Init(const std::vector<Vertex>& Vertices,
+        void Init(const std::vector<Engine::Vertex>& Vertices,
                   const std::vector<unsigned int>& Indices);
 
         GLuint VB;
